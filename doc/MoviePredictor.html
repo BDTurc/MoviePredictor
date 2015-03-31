@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class MoviePredictor - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-movies_average_modification">#movies_average_modification</a>
+    
+    <li ><a href="#method-i-predict">#predict</a>
+    
+    <li ><a href="#method-i-prediction_modifiers">#prediction_modifiers</a>
+    
+    <li ><a href="#method-i-rating">#rating</a>
+    
+    <li ><a href="#method-i-rating_average">#rating_average</a>
+    
+    <li ><a href="#method-i-users_pattern_rating">#users_pattern_rating</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-MoviePredictor">
+  <h1 id="class-MoviePredictor" class="class">
+    class MoviePredictor
+  </h1>
+
+  <section class="description">
+    
+<p>Author:  Bryan Turcotte</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(user_hash, movie_hash)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File movies2_predictor.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">user_hash</span>, <span class="ruby-identifier">movie_hash</span>)
+  <span class="ruby-ivar">@user_hash</span> = <span class="ruby-identifier">user_hash</span>
+  <span class="ruby-ivar">@movie_hash</span> = <span class="ruby-identifier">movie_hash</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-movies_average_modification" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">movies_average_modification</span><span
+            class="method-args">(base_prediction, movie_id, user_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Modifies the prediction based off of movie&#39;s average ratings</p>
+          
+          
+
+          
+          <div class="method-source-code" id="movies_average_modification-source">
+            <pre><span class="ruby-comment"># File movies2_predictor.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">movies_average_modification</span>(<span class="ruby-identifier">base_prediction</span>, <span class="ruby-identifier">movie_id</span>, <span class="ruby-identifier">user_id</span>)
+  
+  <span class="ruby-identifier">modified_prediction</span> = <span class="ruby-identifier">base_prediction</span> 
+  <span class="ruby-identifier">popular_opinion</span> = <span class="ruby-identifier">rating_average</span>(<span class="ruby-identifier">movie_id</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">popular_opinion</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">3</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">base_prediction</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">3</span>
+    <span class="ruby-identifier">modified_prediction</span> <span class="ruby-operator">+=</span> <span class="ruby-value">0.2</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">popular_opinion</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">3</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">base_prediction</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">3</span>
+    <span class="ruby-identifier">modified_prediction</span> <span class="ruby-operator">-=</span> <span class="ruby-value">0.2</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">modified_prediction</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-predict" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">predict</span><span
+            class="method-args">(predictive_users, movie_id, user_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Uses a collaborative filtering algorithm to create base prediction.  It
+takes the average of the ratings of each of the users in the predictive
+data group, and then uses it as the initial prediction.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="predict-source">
+            <pre><span class="ruby-comment"># File movies2_predictor.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">predict</span>(<span class="ruby-identifier">predictive_users</span>, <span class="ruby-identifier">movie_id</span>, <span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">score</span> = <span class="ruby-value">0.0</span>
+  <span class="ruby-identifier">total</span> = <span class="ruby-value">0.0</span>
+  <span class="ruby-identifier">tally</span> = <span class="ruby-value">0.0</span>
+  <span class="ruby-identifier">predictive_users</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">score</span> = <span class="ruby-identifier">rating</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">movie_id</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-comment">#Takes the average score of users in the predictive </span>
+    <span class="ruby-comment">#array and sets that to the prediction.  </span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">score</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">total</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">score</span>
+      <span class="ruby-identifier">tally</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">base_prediction</span> = (<span class="ruby-identifier">total</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">tally</span>).<span class="ruby-identifier">to_f</span>
+  <span class="ruby-identifier">prediction</span> = <span class="ruby-identifier">prediction_modifiers</span>(<span class="ruby-identifier">base_prediction</span>, <span class="ruby-identifier">movie_id</span>, <span class="ruby-identifier">user_id</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">prediction</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-prediction_modifiers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prediction_modifiers</span><span
+            class="method-args">(base_prediction, movie_id, user_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Modifies the prediction based off of difference of our collaborative
+filtering algorithm&#39;s guess and the movie&#39;s average rating, as well
+as the user&#39;s average rating for any given movie. The actual modifying 
+values (.2, .5) come from testing accuracy on the training set data</p>
+          
+          
+
+          
+          <div class="method-source-code" id="prediction_modifiers-source">
+            <pre><span class="ruby-comment"># File movies2_predictor.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prediction_modifiers</span>(<span class="ruby-identifier">base_prediction</span>, <span class="ruby-identifier">movie_id</span>, <span class="ruby-identifier">user_id</span>) 
+  <span class="ruby-identifier">modified_prediction</span> = <span class="ruby-identifier">movies_average_modification</span>(<span class="ruby-identifier">base_prediction</span>, <span class="ruby-identifier">movie_id</span>, <span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">modified_prediction</span> = <span class="ruby-identifier">users_pattern_rating</span>(<span class="ruby-identifier">base_prediction</span>, <span class="ruby-identifier">modified_prediction</span>, <span class="ruby-identifier">movie_id</span>, <span class="ruby-identifier">user_id</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">modified_prediction</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span> <span class="ruby-comment">#checks if our modified result ended out of bounds (0 is min, 5 max)</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">5</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">modified_prediction</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">modified_prediction</span>
+
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-rating" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rating</span><span
+            class="method-args">(user_id, movie_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculates the rating of a movie, to be used as a prediction metric.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="rating-source">
+            <pre><span class="ruby-comment"># File movies2_predictor.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rating</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">movie_id</span>) 
+  <span class="ruby-identifier">movies</span> = <span class="ruby-ivar">@user_hash</span>[<span class="ruby-identifier">user_id</span>]
+  <span class="ruby-identifier">movies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">movie</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">movie</span>[<span class="ruby-identifier">movie_id</span>]
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">movie</span>[<span class="ruby-identifier">movie_id</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-rating_average" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rating_average</span><span
+            class="method-args">(movie_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Takes the array of user-rating pairings, converts the rating to an int, and
+uses the sum of ratings / count of ratings to calculate its average rating.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="rating_average-source">
+            <pre><span class="ruby-comment"># File movies2_predictor.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rating_average</span>(<span class="ruby-identifier">movie_id</span>)  
+  <span class="ruby-identifier">accumulator</span> = <span class="ruby-value">0.0</span>
+  <span class="ruby-identifier">user_list</span> = <span class="ruby-ivar">@movie_hash</span>[<span class="ruby-identifier">movie_id</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">user_list</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> <span class="ruby-comment">#If nobody saw the movie, return 0.</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">user_list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">accumulator</span> <span class="ruby-operator">+=</span>  <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">hash</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>]].<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span>  <span class="ruby-identifier">average</span> = (<span class="ruby-identifier">accumulator</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@movie_hash</span>[<span class="ruby-identifier">movie_id</span>].<span class="ruby-identifier">length</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-users_pattern_rating" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">users_pattern_rating</span><span
+            class="method-args">(base_prediction, modified_prediction, movie_id, user_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>modifying based off of user&#39;s own rating average.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="users_pattern_rating-source">
+            <pre><span class="ruby-comment"># File movies2_predictor.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">users_pattern_rating</span>(<span class="ruby-identifier">base_prediction</span>, <span class="ruby-identifier">modified_prediction</span>, <span class="ruby-identifier">movie_id</span>, <span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">user_rating_avg</span> = <span class="ruby-value">0.0</span>  
+  <span class="ruby-identifier">movies</span> = <span class="ruby-ivar">@user_hash</span>[<span class="ruby-identifier">user_id</span>]
+  <span class="ruby-identifier">movies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">user_rating_avg</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">hash</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>]].<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">user_rating_avg</span> = <span class="ruby-identifier">user_rating_avg</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@user_hash</span>[<span class="ruby-identifier">user_id</span>].<span class="ruby-identifier">length</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">base_prediction</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_rating_avg</span>
+    <span class="ruby-identifier">modified_prediction</span> <span class="ruby-operator">-=</span> <span class="ruby-value">0.5</span> <span class="ruby-operator">*</span>(<span class="ruby-identifier">base_prediction</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">user_rating_avg</span>).<span class="ruby-identifier">abs</span> 
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">base_prediction</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">user_rating_avg</span>
+    <span class="ruby-identifier">modified_prediction</span> <span class="ruby-operator">+=</span> <span class="ruby-value">0.5</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">base_prediction</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">user_rating_avg</span>).<span class="ruby-identifier">abs</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">modified_prediction</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
